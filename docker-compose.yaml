@@ -36,7 +36,7 @@ services:
       - "GAME_PORT=8766"
       - "GAME_VERSION=public"
       - "MAX_PLAYERS=16"
-      - "MAX_RAM=4096m"
+      - "MAX_RAM=2048m"
       - "MOD_NAMES="
       - "MOD_WORKSHOP_IDS="
       - "NO_CHOWN_CONFIG_DIR=false"
