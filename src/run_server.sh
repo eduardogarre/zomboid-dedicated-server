@@ -77,6 +77,9 @@ function apply_postinstall_config() {
     # Set the Mod names
     "$EDIT_CONFIG" "$SERVER_CONFIG" "Mods" "$MOD_NAMES"
 
+    # Set the Map names
+    "$EDIT_CONFIG" "$SERVER_CONFIG" "Map" "$MAP_NAMES"
+
     # Set the Mod Workshop IDs
     "$EDIT_CONFIG" "$SERVER_CONFIG" "WorkshopItems" "$MOD_WORKSHOP_IDS"
 
@@ -127,7 +130,7 @@ function test_first_run() {
 function update_server() {
     printf "\n### Updating Project Zomboid Server...\n"
 
-    "$STEAM_PATH" +runscript "$STEAM_INSTALL_FILE"
+    steamcmd.sh +runscript "$STEAM_INSTALL_FILE"
 
     printf "\n### Project Zomboid Server updated.\n"
 }
@@ -140,21 +143,6 @@ function apply_preinstall_config() {
     sed -i "s/beta .* /beta $GAME_VERSION /g" "$STEAM_INSTALL_FILE"
 
     printf "\n### Pre Install Configuration applied.\n"
-}
-
-# Change the folder permissions for install and save directory
-function update_folder_permissions() {
-    printf "\n### Updating Folder Permissions...\n"
-
-    if [[ -z "$NO_CHOWN_GAME_DIR" ]] || [[ "$NO_CHOWN_GAME_DIR" == "false" ]]; then
-        chown -R "$(id -u):$(id -g)" "$BASE_GAME_DIR"
-    fi
-
-    if [[ -z "$NO_CHOWN_CONFIG_DIR" ]] || [[ "$NO_CHOWN_CONFIG_DIR" == "false" ]]; then
-        chown -R "$(id -u):$(id -g)" "$CONFIG_DIR"
-    fi
-
-    printf "\n### Folder Permissions updated.\n"
 }
 
 # Set variables for use in the script
@@ -202,6 +190,9 @@ function set_variables() {
     MOD_NAMES=${MOD_NAMES:-""}
     MOD_WORKSHOP_IDS=${MOD_WORKSHOP_IDS:-""}
 
+    # Set the Maps to use
+    MAP_NAMES=${MAP_NAMES:-"Muldraugh, KY"}
+
     # Set the Pause on Empty variable
     PAUSE_ON_EMPTY=${PAUSE_ON_EMPTY:-"true"}
 
@@ -243,7 +234,6 @@ function set_variables() {
 
 ## Main
 set_variables
-update_folder_permissions
 apply_preinstall_config
 update_server
 test_first_run
