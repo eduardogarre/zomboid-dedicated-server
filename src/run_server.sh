@@ -47,7 +47,7 @@ function start_server() {
         -adminusername "$ADMIN_USERNAME" \
         -adminpassword "$ADMIN_PASSWORD" \
         -ip "$BIND_IP" -port "$QUERY_PORT" \
-        -servername "$SERVER_NAME" \
+        #-servername "$SERVER_NAME" \
         -steamvac "$STEAM_VAC" "$USE_STEAM" &
 
     server_pid=$!
